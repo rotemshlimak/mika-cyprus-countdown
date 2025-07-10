@@ -1,0 +1,702 @@
+/* Mika's Azure Cyprus Vacation Countdown Chart - Hebrew RTL */
+
+:root {
+    /* Azure Color Palette */
+    --azure-light: #F0F8FF;
+    --azure-medium: #87CEEB;
+    --azure-deep: #4682B4;
+    --azure-dark: #191970;
+    --azure-bright: #00BFFF;
+    --azure-sky: #87CEFA;
+    --pearl-white: #F8F8FF;
+    --coral-accent: #FF7F50;
+    --gold-sunset: #FFD700;
+    --shadow-light: rgba(70, 130, 180, 0.2);
+    --shadow-medium: rgba(70, 130, 180, 0.4);
+    --shadow-dark: rgba(25, 25, 112, 0.6);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Assistant', sans-serif;
+    background: linear-gradient(135deg, var(--azure-light) 0%, var(--azure-medium) 50%, var(--azure-deep) 100%);
+    min-height: 100vh;
+    color: var(--azure-dark);
+    position: relative;
+    overflow-x: hidden;
+    direction: rtl;
+}
+
+/* Ocean Background */
+.ocean-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(135, 206, 250, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 191, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(70, 130, 180, 0.15) 0%, transparent 50%);
+    z-index: -2;
+    animation: oceanWave 12s ease-in-out infinite;
+}
+
+@keyframes oceanWave {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Floating Bubbles */
+.floating-bubbles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.floating-bubbles::before,
+.floating-bubbles::after {
+    content: '💙';
+    position: absolute;
+    font-size: 20px;
+    animation: bubbleFloat 8s infinite ease-in-out;
+    opacity: 0.6;
+}
+
+.floating-bubbles::before {
+    top: 10%;
+    left: 15%;
+    animation-delay: -2s;
+}
+
+.floating-bubbles::after {
+    top: 60%;
+    right: 20%;
+    animation-delay: -4s;
+}
+
+@keyframes bubbleFloat {
+    0%, 100% { transform: translateY(0px) scale(1); opacity: 0.6; }
+    50% { transform: translateY(-30px) scale(1.1); opacity: 0.8; }
+}
+
+/* Main Container */
+.countdown-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(248, 248, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px var(--shadow-medium);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 30px;
+    background: linear-gradient(135deg, var(--azure-bright), var(--azure-deep));
+    border-radius: 15px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px var(--shadow-dark);
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% { text-shadow: 2px 2px 4px var(--shadow-dark); }
+    100% { text-shadow: 2px 2px 4px var(--shadow-dark), 0 0 20px rgba(255, 255, 255, 0.5); }
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    opacity: 0.95;
+}
+
+.wave-emoji {
+    display: inline-block;
+    animation: wave 2s ease-in-out infinite;
+    margin: 0 10px;
+}
+
+@keyframes wave {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+}
+
+.azure-border {
+    height: 6px;
+    background: linear-gradient(90deg, 
+        transparent,
+        var(--gold-sunset),
+        var(--pearl-white),
+        var(--coral-accent),
+        transparent
+    );
+    border-radius: 3px;
+    animation: borderShimmer 4s linear infinite;
+    margin: 0 auto;
+    width: 60%;
+}
+
+@keyframes borderShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
+/* Countdown Info Section */
+.countdown-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.info-card {
+    background: linear-gradient(135deg, var(--pearl-white), var(--azure-light));
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px var(--shadow-light);
+    border: 2px solid var(--azure-medium);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px var(--shadow-medium);
+}
+
+.main-counter .counter-number {
+    font-family: 'Fredoka One', cursive;
+    font-size: 4rem;
+    color: var(--azure-deep);
+    text-shadow: 2px 2px 4px var(--shadow-light);
+    animation: counterPulse 2s ease-in-out infinite;
+}
+
+@keyframes counterPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.counter-label {
+    font-size: 1.2rem;
+    color: var(--azure-dark);
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/* Progress Card */
+.progress-label {
+    font-size: 1.1rem;
+    color: var(--azure-dark);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 30px;
+    background: var(--azure-light);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--azure-medium);
+    margin-bottom: 15px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--azure-bright), var(--azure-deep));
+    border-radius: 13px;
+    transition: width 0.6s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--azure-dark);
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.marked-days {
+    color: var(--azure-deep);
+    font-weight: 600;
+}
+
+/* Destination Card */
+.destination-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.destination-date {
+    font-size: 1rem;
+    color: var(--azure-deep);
+}
+
+.date-display {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: var(--azure-dark);
+    text-shadow: 1px 1px 2px var(--shadow-light);
+}
+
+.destination-name {
+    font-size: 1.3rem;
+    color: var(--coral-accent);
+    font-weight: bold;
+}
+
+/* Calendar Section */
+.calendar-section {
+    background: linear-gradient(135deg, var(--pearl-white), var(--azure-light));
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 40px var(--shadow-light);
+    border: 3px solid var(--azure-medium);
+}
+
+.calendar-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.calendar-header h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: var(--azure-deep);
+    margin-bottom: 10px;
+}
+
+.calendar-header p {
+    font-size: 1.1rem;
+    color: var(--azure-dark);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 8px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, var(--azure-light), var(--azure-medium));
+    border: 2px solid var(--azure-deep);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--azure-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 60px;
+}
+
+.calendar-day:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px var(--shadow-medium);
+    background: linear-gradient(135deg, var(--azure-bright), var(--azure-deep));
+    color: white;
+}
+
+.calendar-day.past {
+    background: linear-gradient(135deg, #e0e0e0, #c0c0c0);
+    color: #666;
+    cursor: not-allowed;
+}
+
+.calendar-day.today {
+    background: linear-gradient(135deg, var(--gold-sunset), var(--coral-accent));
+    color: white;
+    animation: todayGlow 2s ease-in-out infinite alternate;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+@keyframes todayGlow {
+    0% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.6); }
+    100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+}
+
+.calendar-day.vacation-day {
+    background: linear-gradient(135deg, var(--gold-sunset), var(--coral-accent));
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    animation: vacationShine 3s ease-in-out infinite;
+}
+
+@keyframes vacationShine {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.8); }
+    50% { box-shadow: 0 0 40px rgba(255, 215, 0, 1); }
+}
+
+.calendar-day.marked {
+    background: linear-gradient(135deg, var(--azure-medium), var(--azure-deep));
+    color: white;
+}
+
+.calendar-day.marked::after {
+    content: '❌';
+    position: absolute;
+    font-size: 1.5rem;
+    animation: markAppear 0.5s ease;
+}
+
+@keyframes markAppear {
+    0% { transform: scale(0) rotate(0deg); opacity: 0; }
+    100% { transform: scale(1) rotate(360deg); opacity: 1; }
+}
+
+/* Month Headers */
+.month-header {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: var(--azure-deep);
+    background: linear-gradient(135deg, var(--azure-light), var(--pearl-white));
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    border: 2px solid var(--azure-medium);
+}
+
+/* Encouragement Section */
+.encouragement-section {
+    margin-bottom: 30px;
+}
+
+.encouragement-card {
+    background: linear-gradient(135deg, var(--azure-light), var(--azure-medium));
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px var(--shadow-light);
+    border: 3px solid var(--azure-bright);
+    position: relative;
+    overflow: hidden;
+}
+
+.encouragement-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: sparkle 4s linear infinite;
+}
+
+@keyframes sparkle {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.encouragement-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.encouragement-text {
+    font-size: 1.3rem;
+    color: var(--azure-dark);
+    font-weight: 600;
+    line-height: 1.4;
+    position: relative;
+    z-index: 1;
+}
+
+/* Cyprus Dreams Section */
+.cyprus-dreams {
+    background: linear-gradient(135deg, var(--pearl-white), var(--azure-light));
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 15px 40px var(--shadow-light);
+    border: 3px solid var(--azure-medium);
+}
+
+.cyprus-dreams h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: var(--azure-deep);
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.dreams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.dream-item {
+    background: linear-gradient(135deg, var(--azure-light), var(--azure-medium));
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--azure-dark);
+    font-weight: 600;
+    box-shadow: 0 5px 15px var(--shadow-light);
+    border: 2px solid var(--azure-bright);
+    transition: transform 0.3s ease;
+}
+
+.dream-item:hover {
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0 8px 25px var(--shadow-medium);
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(135deg, var(--azure-deep), var(--azure-dark));
+    border-radius: 15px;
+    color: white;
+    margin-top: 20px;
+}
+
+.footer-text p {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+.footer-text small {
+    opacity: 0.9;
+    font-size: 1rem;
+}
+
+/* Celebration Modal */
+.celebration-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.celebration-modal.show {
+    display: flex;
+    animation: modalAppear 0.5s ease;
+}
+
+@keyframes modalAppear {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.celebration-content {
+    background: linear-gradient(135deg, var(--pearl-white), var(--azure-light));
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 20px 60px var(--shadow-dark);
+    border: 4px solid var(--azure-bright);
+    animation: celebrationBounce 0.6s ease;
+}
+
+@keyframes celebrationBounce {
+    0% { transform: scale(0.5); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.celebration-emoji {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    animation: celebrationSpin 2s linear infinite;
+}
+
+@keyframes celebrationSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.celebration-content h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    color: var(--azure-deep);
+    margin-bottom: 15px;
+}
+
+.celebration-content p {
+    font-size: 1.3rem;
+    color: var(--azure-dark);
+    margin-bottom: 25px;
+}
+
+.close-modal {
+    background: linear-gradient(135deg, var(--azure-bright), var(--azure-deep));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.close-modal:hover {
+    transform: scale(1.05);
+}
+
+/* Notification Area */
+.notification-area {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.notification {
+    background: linear-gradient(135deg, var(--azure-light), var(--azure-medium));
+    border-radius: 15px;
+    padding: 15px 25px;
+    margin-bottom: 15px;
+    color: var(--azure-dark);
+    font-weight: 600;
+    box-shadow: 0 10px 30px var(--shadow-medium);
+    border: 2px solid var(--azure-bright);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    min-width: 300px;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .countdown-container {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
+    .countdown-info {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .main-counter .counter-number {
+        font-size: 3rem;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        gap: 6px;
+    }
+
+    .calendar-day {
+        min-height: 50px;
+        font-size: 1rem;
+    }
+
+    .dreams-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .celebration-content {
+        margin: 20px;
+        padding: 30px;
+    }
+
+    .celebration-content h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.6rem;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    .calendar-day {
+        min-height: 45px;
+        font-size: 0.9rem;
+    }
+
+    .encouragement-text {
+        font-size: 1.1rem;
+    }
+}
