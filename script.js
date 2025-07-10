@@ -54,10 +54,18 @@ class MikaCountdown {
         this.encouragementTextElement = document.getElementById('encouragementText');
         this.celebrationModal = document.getElementById('celebrationModal');
         this.notificationArea = document.getElementById('notificationArea');
+        
+        // Initialize Cyprus facts click functionality
+        this.initializeCyprusFactsClick();
     }
 
     calculateDaysUntilVacation() {
         const timeDiff = this.vacationDate.getTime() - this.today.getTime();
+        return Math.ceil(timeDiff / (1000 * 3600 * 24));
+    }
+
+    calculateRemainingDaysFromDate(fromDate) {
+        const timeDiff = this.vacationDate.getTime() - fromDate.getTime();
         return Math.ceil(timeDiff / (1000 * 3600 * 24));
     }
 
@@ -128,6 +136,10 @@ class MikaCountdown {
     toggleDay(dayElement, date) {
         const dateString = dayElement.dataset.date;
         
+        // Calculate remaining days from this specific date
+        const remainingDaysFromDate = this.calculateRemainingDaysFromDate(date);
+        const formattedDate = this.formatHebrewDate(date);
+        
         if (dayElement.classList.contains('marked')) {
             // Unmark the day
             dayElement.classList.remove('marked');
@@ -140,6 +152,9 @@ class MikaCountdown {
             this.showCelebration();
             this.playClickSound();
         }
+        
+        // Update the table to show remaining days from the clicked date
+        this.updateTableWithClickedDate(date, remainingDaysFromDate, formattedDate);
         
         this.saveProgress();
         this.updateProgress();
@@ -177,6 +192,22 @@ class MikaCountdown {
         } else if (progressPercentage >= 50) {
             this.progressFillElement.style.animation = 'progressShine 2s infinite';
         }
+    }
+
+    updateTableWithClickedDate(clickedDate, remainingDays, formattedDate) {
+        // Update the table to show remaining days from the clicked date
+        if (this.daysRemainingTableElement) {
+            this.daysRemainingTableElement.textContent = remainingDays;
+        }
+        
+        // Update table header to show which date was clicked
+        const tableHeader = document.querySelector('.countdown-table th');
+        if (tableHeader) {
+            tableHeader.innerHTML = `ימים נותרים מ-${formattedDate} לקפריסין 🇨🇾`;
+        }
+        
+        // Show notification with the information
+        this.showNotification(`מ-${formattedDate} נותרו ${remainingDays} ימים לקפריסין!`);
     }
 
     updateEncouragement() {
@@ -328,6 +359,66 @@ class MikaCountdown {
                 heart.remove();
             }
         }, 4000);
+    }
+
+    initializeCyprusFactsClick() {
+        // Add click functionality to the Cyprus facts section
+        const cyprusFactsSection = document.querySelector('.cyprus-facts');
+        const cyprusFactsHeader = cyprusFactsSection?.querySelector('h3');
+        const factItems = cyprusFactsSection?.querySelectorAll('.fact-item');
+        
+        if (cyprusFactsSection) {
+            // Make the header clickable
+            if (cyprusFactsHeader) {
+                cyprusFactsHeader.style.cursor = 'pointer';
+                cyprusFactsHeader.style.transition = 'all 0.3s ease';
+                
+                cyprusFactsHeader.addEventListener('click', () => {
+                    this.openCyprusFactsPage();
+                });
+                
+                cyprusFactsHeader.addEventListener('mouseenter', () => {
+                    cyprusFactsHeader.style.transform = 'scale(1.05)';
+                    cyprusFactsHeader.style.color = '#0083b0';
+                });
+                
+                cyprusFactsHeader.addEventListener('mouseleave', () => {
+                    cyprusFactsHeader.style.transform = 'scale(1)';
+                    cyprusFactsHeader.style.color = '';
+                });
+            }
+            
+            // Make each fact item clickable
+            factItems.forEach(factItem => {
+                factItem.style.cursor = 'pointer';
+                factItem.style.transition = 'all 0.3s ease';
+                
+                factItem.addEventListener('click', () => {
+                    this.openCyprusFactsPage();
+                });
+                
+                factItem.addEventListener('mouseenter', () => {
+                    factItem.style.transform = 'translateY(-3px)';
+                    factItem.style.boxShadow = '0 8px 25px rgba(0, 131, 176, 0.3)';
+                });
+                
+                factItem.addEventListener('mouseleave', () => {
+                    factItem.style.transform = 'translateY(0)';
+                    factItem.style.boxShadow = '';
+                });
+            });
+        }
+    }
+
+    openCyprusFactsPage() {
+        // Show notification
+        this.showNotification('פותח דף עובדות על קפריסין מלא בתמונות ומידע מרתק!');
+        
+        // Play click sound
+        this.playClickSound();
+        
+        // Open the Cyprus facts page in a new tab
+        window.open('cyprus-facts.html', '_blank');
     }
 }
 
