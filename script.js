@@ -18,12 +18,12 @@ class MikaCountdown {
         
         // Encouragement messages for Mika
         this.encouragementMessages = [
-            'מיקה, עוד מעט תהיי בקפריסין עם המים הכחולים העזוריים הכי יפים!',
-            'המים העזוריים של קפריסין מחכים למיקה המתוקה!',
+            'מיקה, עוד מעט תהיי בקפריסין עם המים הכחולים התכלתיים הכי יפים!',
+            'המים התכלתיים של קפריסין מחכים למיקה המתוקה!',
             'עוד קצת סבלנות מיקה, החופשה הכחולה שלך מתקרבת!',
             'מיקה הולכת ליהנות כל כך בחוף הים הכחול של קפריסין!',
             'החופשה של מיקה בקפריסין הולכת להיות מדהימה!',
-            'המים העזוריים והחול הזהוב מחכים למיקה!',
+            'המים התכלתיים והחול הזהוב מחכים למיקה!',
             'עוד מעט מיקה תשחה במים הכי כחולים וצלולים!',
             'מיקה, קפריסין הולכת להיות החופשה הכי יפה שלך!'
         ];
@@ -46,6 +46,7 @@ class MikaCountdown {
 
     initializeElements() {
         this.daysLeftElement = document.getElementById('daysLeft');
+        this.daysRemainingTableElement = document.getElementById('daysRemainingTable');
         this.progressFillElement = document.getElementById('progressFill');
         this.progressTextElement = document.getElementById('progressText');
         this.markedCountElement = document.getElementById('markedCount');
@@ -148,6 +149,11 @@ class MikaCountdown {
         const daysLeft = this.calculateDaysUntilVacation();
         this.daysLeftElement.textContent = daysLeft;
         
+        // Update the table element if it exists
+        if (this.daysRemainingTableElement) {
+            this.daysRemainingTableElement.textContent = daysLeft;
+        }
+        
         // Special messages based on days left
         if (daysLeft <= 7) {
             this.daysLeftElement.style.animation = 'counterPulse 1s ease-in-out infinite';
@@ -190,7 +196,7 @@ class MikaCountdown {
         // Random celebration messages
         const celebrationMessages = [
             'יופי מיקה! עוד יום קרוב יותר לחופשה בקפריסין!',
-            'כל הכבוד מיקה! המים העזוריים מחכים לך!',
+            'כל הכבוד מיקה! המים התכלתיים מחכים לך!',
             'מעולה מיקה! עוד קצת והחופשה תתחיל!',
             'נהדר מיקה! אתך הולכת ליהנות בקפריסין!',
             'איזה יופי מיקה! החופשה מתקרבת!'
@@ -365,4 +371,4 @@ document.head.appendChild(style);
 // Console messages for Mika
 console.log('💙 לוח הספירה של מיקה לחופשה בקפריסין נטען בהצלחה! 💙');
 console.log('🏖️ מיקה, החופשה שלך הולכת להיות מדהימה! 🏖️');
-console.log('🌊 המים העזוריים של קפריסין מחכים לך! 🌊');
+console.log('🌊 המים התכלתיים של קפריסין מחכים לך! 🌊');
