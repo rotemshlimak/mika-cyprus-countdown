@@ -354,9 +354,9 @@ body {
 
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-    gap: 8px;
-    max-width: 800px;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -368,13 +368,17 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     font-weight: bold;
     color: var(--azure-dark);
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    min-height: 60px;
+    min-height: 120px;
+    padding: 8px;
+    text-align: center;
+    white-space: pre-line;
+    line-height: 1.2;
 }
 
 .calendar-day:hover {
@@ -782,13 +786,14 @@ body {
     }
 
     .calendar-grid {
-        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-        gap: 6px;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
     }
 
     .calendar-day {
-        min-height: 50px;
-        font-size: 1rem;
+        min-height: 100px;
+        font-size: 0.8rem;
+        padding: 6px;
     }
 
     .dreams-grid {
@@ -812,12 +817,15 @@ body {
     }
 
     .calendar-grid {
-        grid-template-columns: repeat(7, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 6px;
     }
 
     .calendar-day {
-        min-height: 45px;
-        font-size: 0.9rem;
+        min-height: 80px;
+        font-size: 0.7rem;
+        padding: 4px;
+        line-height: 1.1;
     }
 
     .encouragement-text {

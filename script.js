@@ -18,12 +18,12 @@ class MikaCountdown {
         
         // Encouragement messages for Mika
         this.encouragementMessages = [
-            'מיקה, עוד מעט תהיי בקפריסין עם המים הכחולים התכלתיים הכי יפים!',
-            'המים התכלתיים של קפריסין מחכים למיקה המתוקה!',
+            'מיקה, עוד מעט תהיי בקפריסין עם המים הכחולים הכי יפים!',
+            'המים הכחולים של קפריסין מחכים למיקה המתוקה!',
             'עוד קצת סבלנות מיקה, החופשה הכחולה שלך מתקרבת!',
             'מיקה הולכת ליהנות כל כך בחוף הים הכחול של קפריסין!',
             'החופשה של מיקה בקפריסין הולכת להיות מדהימה!',
-            'המים התכלתיים והחול הזהוב מחכים למיקה!',
+            'המים הכחולים והחול הזהוב מחכים למיקה!',
             'עוד מעט מיקה תשחה במים הכי כחולים וצלולים!',
             'מיקה, קפריסין הולכת להיות החופשה הכי יפה שלך!'
         ];
@@ -104,7 +104,17 @@ class MikaCountdown {
         const dayElement = document.createElement('div');
         dayElement.className = 'calendar-day';
         dayElement.dataset.date = date.toISOString().split('T')[0];
-        dayElement.textContent = date.getDate();
+        
+        // Calculate remaining days from this date to vacation
+        const remainingDays = this.calculateRemainingDaysFromDate(date);
+        const dayOfMonth = date.getDate();
+        const monthNumber = date.getMonth() + 1; // getMonth() returns 0-11, so add 1
+        
+        // Format date as DD.MM
+        const formattedDate = `${dayOfMonth.toString().padStart(2, '0')}.${monthNumber.toString().padStart(2, '0')}`;
+        
+        // Show both remaining days and date with cleaner Hebrew labels
+        dayElement.textContent = `נותרו: ${remainingDays} ימים\nתאריך: ${formattedDate}`;
         
         // Determine day status
         if (date.getTime() < this.today.getTime()) {
@@ -112,7 +122,9 @@ class MikaCountdown {
             dayElement.style.cursor = 'not-allowed';
         } else if (date.getTime() === this.today.getTime()) {
             dayElement.classList.add('today');
-            dayElement.textContent = `היום\n${date.getDate()}`;
+            dayElement.textContent = `היום\nנותרו: ${remainingDays} ימים\nתאריך: ${formattedDate}`;
+            // Today is also clickable
+            dayElement.addEventListener('click', () => this.toggleDay(dayElement, date));
         } else {
             // Future day - clickable
             dayElement.addEventListener('click', () => this.toggleDay(dayElement, date));
@@ -129,16 +141,12 @@ class MikaCountdown {
     createVacationDay() {
         const vacationElement = document.createElement('div');
         vacationElement.className = 'calendar-day vacation-day';
-        vacationElement.textContent = 'יום הקפריסין של מיקה! 🇨🇾✈️';
+        vacationElement.textContent = 'מיקה טסה לקפריסין ✈️';
         this.calendarGridElement.appendChild(vacationElement);
     }
 
     toggleDay(dayElement, date) {
         const dateString = dayElement.dataset.date;
-        
-        // Calculate remaining days from this specific date
-        const remainingDaysFromDate = this.calculateRemainingDaysFromDate(date);
-        const formattedDate = this.formatHebrewDate(date);
         
         if (dayElement.classList.contains('marked')) {
             // Unmark the day
@@ -153,9 +161,6 @@ class MikaCountdown {
             this.playClickSound();
         }
         
-        // Update the table to show remaining days from the clicked date
-        this.updateTableWithClickedDate(date, remainingDaysFromDate, formattedDate);
-        
         this.saveProgress();
         this.updateProgress();
     }
@@ -164,9 +169,11 @@ class MikaCountdown {
         const daysLeft = this.calculateDaysUntilVacation();
         this.daysLeftElement.textContent = daysLeft;
         
-        // Update the table element if it exists
+        // Update the table element with static days from 10/7/2025
         if (this.daysRemainingTableElement) {
-            this.daysRemainingTableElement.textContent = daysLeft;
+            const staticDate = new Date('2025-07-10');
+            const staticDaysLeft = this.calculateRemainingDaysFromDate(staticDate);
+            this.daysRemainingTableElement.textContent = staticDaysLeft;
         }
         
         // Special messages based on days left
@@ -194,21 +201,6 @@ class MikaCountdown {
         }
     }
 
-    updateTableWithClickedDate(clickedDate, remainingDays, formattedDate) {
-        // Update the table to show remaining days from the clicked date
-        if (this.daysRemainingTableElement) {
-            this.daysRemainingTableElement.textContent = remainingDays;
-        }
-        
-        // Update table header to show which date was clicked
-        const tableHeader = document.querySelector('.countdown-table th');
-        if (tableHeader) {
-            tableHeader.innerHTML = `ימים נותרים מ-${formattedDate} לקפריסין 🇨🇾`;
-        }
-        
-        // Show notification with the information
-        this.showNotification(`מ-${formattedDate} נותרו ${remainingDays} ימים לקפריסין!`);
-    }
 
     updateEncouragement() {
         const randomMessage = this.encouragementMessages[
@@ -227,7 +219,7 @@ class MikaCountdown {
         // Random celebration messages
         const celebrationMessages = [
             'יופי מיקה! עוד יום קרוב יותר לחופשה בקפריסין!',
-            'כל הכבוד מיקה! המים התכלתיים מחכים לך!',
+            'כל הכבוד מיקה! המים הכחולים מחכים לך!',
             'מעולה מיקה! עוד קצת והחופשה תתחיל!',
             'נהדר מיקה! אתך הולכת ליהנות בקפריסין!',
             'איזה יופי מיקה! החופשה מתקרבת!'
@@ -308,7 +300,9 @@ class MikaCountdown {
 
     saveProgress() {
         try {
-            localStorage.setItem('mikaCountdownProgress', JSON.stringify(this.markedDays));
+            // Set cookie to expire after vacation date (July 22, 2025)
+            const expirationDate = new Date('2025-07-23'); // Day after vacation
+            this.setCookie('mikaCountdownProgress', JSON.stringify(this.markedDays), expirationDate);
         } catch (error) {
             console.error('Failed to save progress:', error);
         }
@@ -316,12 +310,34 @@ class MikaCountdown {
 
     loadProgress() {
         try {
-            const saved = localStorage.getItem('mikaCountdownProgress');
+            const saved = this.getCookie('mikaCountdownProgress');
             return saved ? JSON.parse(saved) : [];
         } catch (error) {
             console.error('Failed to load progress:', error);
             return [];
         }
+    }
+
+    // Cookie helper functions
+    setCookie(name, value, expirationDate) {
+        const expires = expirationDate ? `; expires=${expirationDate.toUTCString()}` : '';
+        document.cookie = `${name}=${encodeURIComponent(value)}${expires}; path=/; SameSite=Lax`;
+    }
+
+    getCookie(name) {
+        const nameEQ = name + "=";
+        const cookies = document.cookie.split(';');
+        
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i];
+            while (cookie.charAt(0) === ' ') {
+                cookie = cookie.substring(1, cookie.length);
+            }
+            if (cookie.indexOf(nameEQ) === 0) {
+                return decodeURIComponent(cookie.substring(nameEQ.length, cookie.length));
+            }
+        }
+        return null;
     }
 
     // Helper method to format Hebrew dates
@@ -462,4 +478,4 @@ document.head.appendChild(style);
 // Console messages for Mika
 console.log('💙 לוח הספירה של מיקה לחופשה בקפריסין נטען בהצלחה! 💙');
 console.log('🏖️ מיקה, החופשה שלך הולכת להיות מדהימה! 🏖️');
-console.log('🌊 המים התכלתיים של קפריסין מחכים לך! 🌊');
+console.log('🌊 המים הכחולים של קפריסין מחכים לך! 🌊');
