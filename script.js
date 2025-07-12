@@ -70,27 +70,20 @@ class MikaCountdown {
     }
 
     generateCalendar() {
-        const totalDays = this.calculateDaysUntilVacation();
-        const startDate = new Date(this.today);
-        let currentMonth = -1;
-        
+        // Static calendar: July 11–22, 2025
         this.calendarGridElement.innerHTML = '';
-        
-        for (let i = 0; i < totalDays; i++) {
-            const currentDate = new Date(startDate);
-            currentDate.setDate(startDate.getDate() + i);
-            
-            // Add month header if this is a new month
+        let currentMonth = -1;
+        const year = 2025;
+        const month = 6; // July (0-based)
+        for (let day = 11; day <= 22; day++) {
+            const currentDate = new Date(year, month, day);
             if (currentDate.getMonth() !== currentMonth) {
                 currentMonth = currentDate.getMonth();
                 this.addMonthHeader(currentDate);
             }
-            
-            this.createDayElement(currentDate, i);
+            this.createDayElement(currentDate, day - 11);
         }
-        
-        // Add vacation day
-        this.createVacationDay();
+        // July 22 is now the last calendar day; no separate vacation message
     }
 
     addMonthHeader(date) {
@@ -105,29 +98,62 @@ class MikaCountdown {
         dayElement.className = 'calendar-day';
         dayElement.dataset.date = date.toISOString().split('T')[0];
         
-        // Calculate remaining days from this date to vacation
-        const remainingDays = this.calculateRemainingDaysFromDate(date);
+        // Calculate remaining days from this date to vacation (subtract 1 so 21/7 shows 1, 22/7 shows 0)
+        let remainingDays = this.calculateRemainingDaysFromDate(date) - 1;
+        if (remainingDays < 0) remainingDays = 0;
         const dayOfMonth = date.getDate();
         const monthNumber = date.getMonth() + 1; // getMonth() returns 0-11, so add 1
         
         // Format date as DD.MM
         const formattedDate = `${dayOfMonth.toString().padStart(2, '0')}.${monthNumber.toString().padStart(2, '0')}`;
-        
-        // Show both remaining days and date with cleaner Hebrew labels
-        dayElement.textContent = `נותרו: ${remainingDays} ימים\nתאריך: ${formattedDate}`;
-        
-        // Determine day status
-        if (date.getTime() < this.today.getTime()) {
-            dayElement.classList.add('past');
+
+        // Hebrew day names
+        const hebrewDays = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+        const dayName = `יום ${hebrewDays[date.getDay()]}`;
+
+        // Show day name, date, and remaining days each in a new row with different background colors
+        const isFlightDay = (date.getDate() === 22 && date.getMonth() === 6 && date.getFullYear() === 2025);
+        const dayNameDiv = `<div class="calendar-dayname" style="text-align:center;background:#ffe4e1;padding:2px 0;border-radius:6px 6px 0 0;">${dayName}</div>`;
+        const dateDiv = `<div class="calendar-date" style="text-align:center;background:#e0f7fa;padding:2px 0;">תאריך: ${formattedDate}</div>`;
+        const remainingDiv = `<div class="calendar-remaining" style="text-align:center;background:#fff9c4;padding:2px 0;border-radius:0 0 6px 6px;">נותרו: ${remainingDays} ימים</div>`;
+        // Special colors for current day
+        if (isFlightDay) {
+            dayElement.classList.add('flight-day');
+            dayElement.innerHTML = `<div class="calendar-dayname" style="text-align:center;background:#ff9800;color:#fff;font-weight:bold;padding:4px 0;border-radius:6px 6px 0 0;">${dayName} ✈️</div>
+<div class="calendar-date" style="text-align:center;background:#ffe0b2;color:#222;padding:4px 0;">${formattedDate} - מיקה טסה לקפריסין!</div>
+<div class="calendar-remaining" style="text-align:center;background:#ffd54f;color:#222;padding:4px 0;border-radius:0 0 6px 6px;">יום הטיסה!</div>`;
+            // Flight day is not clickable (future day)
             dayElement.style.cursor = 'not-allowed';
+            dayElement.addEventListener('click', () => {
+                this.showNotification('זהו יום הטיסה!');
+            });
         } else if (date.getTime() === this.today.getTime()) {
             dayElement.classList.add('today');
-            dayElement.textContent = `היום\nנותרו: ${remainingDays} ימים\nתאריך: ${formattedDate}`;
+            const todayDayNameDiv = `<div class="calendar-dayname" style="text-align:center;background:#0083b0;color:#fff;font-weight:bold;padding:4px 0;border-radius:6px 6px 0 0;">${dayName}</div>`;
+            const todayDateDiv = `<div class="calendar-date" style="text-align:center;background:#b2ebf2;color:#222;padding:4px 0;">תאריך: ${formattedDate}</div>`;
+            const todayRemainingDiv = `<div class="calendar-remaining" style="text-align:center;background:#ffe082;color:#222;padding:4px 0;border-radius:0 0 6px 6px;">נותרו: ${remainingDays} ימים</div>`;
+            dayElement.innerHTML = `${todayDayNameDiv}
+${todayDateDiv}
+${todayRemainingDiv}`;
             // Today is also clickable
+            dayElement.style.cursor = 'pointer';
             dayElement.addEventListener('click', () => this.toggleDay(dayElement, date));
         } else {
-            // Future day - clickable
-            dayElement.addEventListener('click', () => this.toggleDay(dayElement, date));
+            dayElement.innerHTML = `${dayNameDiv}
+${dateDiv}
+${remainingDiv}`;
+            if (date.getTime() < this.today.getTime()) {
+                dayElement.classList.add('past');
+                // Past days are clickable
+                dayElement.style.cursor = 'pointer';
+                dayElement.addEventListener('click', () => this.toggleDay(dayElement, date));
+            } else {
+                // Future day - not clickable, but show notification if clicked
+                dayElement.style.cursor = 'not-allowed';
+                dayElement.addEventListener('click', () => {
+                    this.showNotification('לא ניתן לסמן ימים עתידיים');
+                });
+            }
         }
         
         // Check if day is marked
@@ -459,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 300);
 });
 
-// Add some extra CSS animations via JavaScript
+// Add some extra CSS animations and calendar hover style via JavaScript
 const style = document.createElement('style');
 style.textContent = `
     @keyframes floatingHeart {
@@ -471,6 +497,11 @@ style.textContent = `
             transform: translateY(-100vh) rotate(360deg);
             opacity: 0;
         }
+    }
+    .calendar-day:hover .calendar-dayname,
+    .calendar-day:hover .calendar-date,
+    .calendar-day:hover .calendar-remaining {
+        color: unset !important;
     }
 `;
 document.head.appendChild(style);
