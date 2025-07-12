@@ -485,7 +485,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 300);
 });
 
-// Add some extra CSS animations and calendar hover style via JavaScript
+// Add some extra CSS animations, calendar hover style, and X mark overlay via JavaScript
 const style = document.createElement('style');
 style.textContent = `
     @keyframes floatingHeart {
@@ -502,6 +502,31 @@ style.textContent = `
     .calendar-day:hover .calendar-date,
     .calendar-day:hover .calendar-remaining {
         color: unset !important;
+    }
+    .calendar-day.marked {
+        position: relative;
+        background: #ffeaea !important;
+    }
+    .calendar-day.marked::after {
+        content: "✗";
+        color: #d32f2f;
+        font-size: 3em;
+        font-weight: bold;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        opacity: 0.85;
+        z-index: 2;
+    }
+    .calendar-day.marked > * {
+        opacity: 0.25;
     }
 `;
 document.head.appendChild(style);
