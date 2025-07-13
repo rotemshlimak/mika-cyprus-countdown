@@ -1,12 +1,13 @@
 /**
- * Mika's Azure Cyprus Vacation Countdown Chart
+ * Mika's Greece Pilion Vacation Countdown Chart
  * Hebrew RTL Interactive Calendar
  */
 
 class MikaCountdown {
     constructor() {
-        // Target vacation date - July 22, 2025
-        this.vacationDate = new Date('2025-07-22');
+        // Target vacation date - August 21, 2025
+        this.vacationDate = new Date('2025-08-21');
+        this.vacationEndDate = new Date('2025-08-28');
         this.today = new Date();
         this.today.setHours(0, 0, 0, 0);
         
@@ -18,14 +19,14 @@ class MikaCountdown {
         
         // Encouragement messages for Mika
         this.encouragementMessages = [
-            'מיקה, עוד מעט תהיי בקפריסין עם המים הכחולים הכי יפים!',
-            'המים הכחולים של קפריסין מחכים למיקה המתוקה!',
-            'עוד קצת סבלנות מיקה, החופשה הכחולה שלך מתקרבת!',
-            'מיקה הולכת ליהנות כל כך בחוף הים הכחול של קפריסין!',
-            'החופשה של מיקה בקפריסין הולכת להיות מדהימה!',
-            'המים הכחולים והחול הזהוב מחכים למיקה!',
-            'עוד מעט מיקה תשחה במים הכי כחולים וצלולים!',
-            'מיקה, קפריסין הולכת להיות החופשה הכי יפה שלך!'
+            'מיקה, עוד מעט תהיי ביוון פיליון עם הרי הקנטאורים הקסומים!',
+            'הרי פיליון הירוקים והמים הכחולים מחכים למיקה המתוקה!',
+            'עוד קצת סבלנות מיקה, החופשה היוונית שלך מתקרבת!',
+            'מיקה הולכת ליהנות כל כך ביוון פיליון הקסום!',
+            'החופשה של מיקה ביוון פיליון הולכת להיות מדהימה!',
+            'הרי הקנטאורים והחופים הסמויים מחכים למיקה!',
+            'עוד מעט מיקה תטייל ביערות הבוק העתיקים!',
+            'מיקה, יוון פיליון הולכת להיות החופשה הכי יפה שלך!'
         ];
         
         // Load saved progress
@@ -46,7 +47,6 @@ class MikaCountdown {
 
     initializeElements() {
         this.daysLeftElement = document.getElementById('daysLeft');
-        this.daysRemainingTableElement = document.getElementById('daysRemainingTable');
         this.progressFillElement = document.getElementById('progressFill');
         this.progressTextElement = document.getElementById('progressText');
         this.markedCountElement = document.getElementById('markedCount');
@@ -55,8 +55,8 @@ class MikaCountdown {
         this.celebrationModal = document.getElementById('celebrationModal');
         this.notificationArea = document.getElementById('notificationArea');
         
-        // Initialize Cyprus facts click functionality
-        this.initializeCyprusFactsClick();
+        // Initialize Greece facts click functionality
+        this.initializeGreeceFactsClick();
     }
 
     calculateDaysUntilVacation() {
@@ -66,24 +66,30 @@ class MikaCountdown {
 
     calculateRemainingDaysFromDate(fromDate) {
         const timeDiff = this.vacationDate.getTime() - fromDate.getTime();
-        return Math.ceil(timeDiff / (1000 * 3600 * 24));
+        return Math.ceil(timeDiff / (1000 * 3600 * 24)) - 1;
     }
 
     generateCalendar() {
-        // Static calendar: July 11–22, 2025
+        // Calendar from today (July 13, 2025) to vacation start (August 21, 2025)
         this.calendarGridElement.innerHTML = '';
+        
+        // Start from today
+        const startDate = new Date(this.today);
+        const endDate = new Date(this.vacationDate);
+        
         let currentMonth = -1;
-        const year = 2025;
-        const month = 6; // July (0-based)
-        for (let day = 11; day <= 22; day++) {
-            const currentDate = new Date(year, month, day);
+        let currentDate = new Date(startDate);
+        
+        while (currentDate <= endDate) {
+            // Add month header when month changes
             if (currentDate.getMonth() !== currentMonth) {
                 currentMonth = currentDate.getMonth();
                 this.addMonthHeader(currentDate);
             }
-            this.createDayElement(currentDate, day - 11);
+            
+            this.createDayElement(new Date(currentDate));
+            currentDate.setDate(currentDate.getDate() + 1);
         }
-        // July 22 is now the last calendar day; no separate vacation message
     }
 
     addMonthHeader(date) {
@@ -93,16 +99,13 @@ class MikaCountdown {
         this.calendarGridElement.appendChild(monthHeader);
     }
 
-    createDayElement(date, dayIndex) {
+    createDayElement(date) {
         const dayElement = document.createElement('div');
         dayElement.className = 'calendar-day';
         dayElement.dataset.date = date.toISOString().split('T')[0];
         
-        // Calculate remaining days from this date to vacation (subtract 1 so 21/7 shows 1, 22/7 shows 0)
-        let remainingDays = this.calculateRemainingDaysFromDate(date) - 1;
-        if (remainingDays < 0) remainingDays = 0;
         const dayOfMonth = date.getDate();
-        const monthNumber = date.getMonth() + 1; // getMonth() returns 0-11, so add 1
+        const monthNumber = date.getMonth() + 1;
         
         // Format date as DD.MM
         const formattedDate = `${dayOfMonth.toString().padStart(2, '0')}.${monthNumber.toString().padStart(2, '0')}`;
@@ -111,44 +114,70 @@ class MikaCountdown {
         const hebrewDays = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
         const dayName = `יום ${hebrewDays[date.getDay()]}`;
 
-        // Show day name, date, and remaining days each in a new row with different background colors
-        const isFlightDay = (date.getDate() === 22 && date.getMonth() === 6 && date.getFullYear() === 2025);
-        const dayNameDiv = `<div class="calendar-dayname" style="text-align:center;background:#ffe4e1;padding:2px 0;border-radius:6px 6px 0 0;">${dayName}</div>`;
-        const dateDiv = `<div class="calendar-date" style="text-align:center;background:#e0f7fa;padding:2px 0;">תאריך: ${formattedDate}</div>`;
-        const remainingDiv = `<div class="calendar-remaining" style="text-align:center;background:#fff9c4;padding:2px 0;border-radius:0 0 6px 6px;">נותרו: ${remainingDays} ימים</div>`;
-        // Special colors for current day
+        // Check if this is the flight day (August 21st)
+        const isFlightDay = (date.getTime() === this.vacationDate.getTime());
+        
+        // Check if this is a pre-flight day (August 19th and 20th)
+        const isPreFlightDay = (date.getTime() === new Date('2025-08-19').getTime()) || 
+                              (date.getTime() === new Date('2025-08-20').getTime());
+        
         if (isFlightDay) {
+            // Flight day with same format as today
             dayElement.classList.add('flight-day');
-            dayElement.innerHTML = `<div class="calendar-dayname" style="text-align:center;background:#ff9800;color:#fff;font-weight:bold;padding:4px 0;border-radius:6px 6px 0 0;">${dayName} ✈️</div>
-<div class="calendar-date" style="text-align:center;background:#ffe0b2;color:#222;padding:4px 0;">${formattedDate} - מיקה טסה לקפריסין!</div>
-<div class="calendar-remaining" style="text-align:center;background:#ffd54f;color:#222;padding:4px 0;border-radius:0 0 6px 6px;">יום הטיסה!</div>`;
-            // Flight day is not clickable (future day)
-            dayElement.style.cursor = 'not-allowed';
+            const flightDayNameDiv = `<div class="calendar-dayname" style="text-align:center;background:#FFD700;color:#fff;font-weight:bold;padding:4px 0;border-radius:6px 6px 0 0;">${dayName}</div>`;
+            const flightDateDiv = `<div class="calendar-date" style="text-align:center;background:#ffe0b2;color:#222;padding:4px 0;">תאריך: ${formattedDate}</div>`;
+            const flightDestinationDiv = `<div class="calendar-remaining" style="text-align:center;background:#ffe082;color:#222;padding:4px 0;border-radius:0 0 6px 6px;">✈️ טסה ליוון! 🇬🇷</div>`;
+            dayElement.innerHTML = `${flightDayNameDiv}${flightDateDiv}${flightDestinationDiv}`;
+            dayElement.style.cursor = 'pointer';
             dayElement.addEventListener('click', () => {
-                this.showNotification('זהו יום הטיסה!');
+                this.showFlightModal();
             });
-        } else if (date.getTime() === this.today.getTime()) {
-            dayElement.classList.add('today');
-            const todayDayNameDiv = `<div class="calendar-dayname" style="text-align:center;background:#0083b0;color:#fff;font-weight:bold;padding:4px 0;border-radius:6px 6px 0 0;">${dayName}</div>`;
-            const todayDateDiv = `<div class="calendar-date" style="text-align:center;background:#b2ebf2;color:#222;padding:4px 0;">תאריך: ${formattedDate}</div>`;
-            const todayRemainingDiv = `<div class="calendar-remaining" style="text-align:center;background:#ffe082;color:#222;padding:4px 0;border-radius:0 0 6px 6px;">נותרו: ${remainingDays} ימים</div>`;
-            dayElement.innerHTML = `${todayDayNameDiv}
-${todayDateDiv}
-${todayRemainingDiv}`;
-            // Today is also clickable
+            
+            // Add hover sound effect
+            dayElement.addEventListener('mouseenter', () => {
+                this.playFlightSound();
+                this.createFlightDayFloatingEffects(dayElement);
+            });
+            
+        } else if (isPreFlightDay) {
+            // Pre-flight preparation days
+            dayElement.classList.add('pre-flight-day');
+            const prepMessage = date.getDate() === 19 ? 'הכנות לטיסה' : 'ארזון מזוודות';
+            dayElement.innerHTML = `
+                <div class="calendar-dayname" style="text-align:center;background:#ff6b35;color:#fff;font-weight:bold;padding:4px 0;border-radius:6px 6px 0 0;">${dayName} 🧳</div>
+                <div class="calendar-date" style="text-align:center;background:#ffe0b2;color:#222;padding:4px 0;">${formattedDate}</div>
+                <div class="calendar-remaining" style="text-align:center;background:#ffd54f;color:#222;padding:4px 0;border-radius:0 0 6px 6px;">${prepMessage}</div>
+            `;
             dayElement.style.cursor = 'pointer';
             dayElement.addEventListener('click', () => this.toggleDay(dayElement, date));
+            
         } else {
-            dayElement.innerHTML = `${dayNameDiv}
-${dateDiv}
-${remainingDiv}`;
-            if (date.getTime() < this.today.getTime()) {
+            // Regular countdown days
+            let remainingDays = this.calculateRemainingDaysFromDate(date);
+            if (remainingDays < 0) remainingDays = 0;
+            
+            const dayNameDiv = `<div class="calendar-dayname" style="text-align:center;background:#ffe4e1;padding:2px 0;border-radius:6px 6px 0 0;">${dayName}</div>`;
+            const dateDiv = `<div class="calendar-date" style="text-align:center;background:#e0f7fa;padding:2px 0;">תאריך: ${formattedDate}</div>`;
+            const remainingDiv = `<div class="calendar-remaining" style="text-align:center;background:#fff9c4;padding:2px 0;border-radius:0 0 6px 6px;">נותרו: ${remainingDays} ימים</div>`;
+            
+            if (date.getTime() === this.today.getTime()) {
+                // Today
+                dayElement.classList.add('today');
+                const todayDayNameDiv = `<div class="calendar-dayname" style="text-align:center;background:#0083b0;color:#fff;font-weight:bold;padding:4px 0;border-radius:6px 6px 0 0;">${dayName}</div>`;
+                const todayDateDiv = `<div class="calendar-date" style="text-align:center;background:#b2ebf2;color:#222;padding:4px 0;">תאריך: ${formattedDate}</div>`;
+                const todayRemainingDiv = `<div class="calendar-remaining" style="text-align:center;background:#ffe082;color:#222;padding:4px 0;border-radius:0 0 6px 6px;">נותרו: ${remainingDays} ימים</div>`;
+                dayElement.innerHTML = `${todayDayNameDiv}${todayDateDiv}${todayRemainingDiv}`;
+                dayElement.style.cursor = 'pointer';
+                dayElement.addEventListener('click', () => this.toggleDay(dayElement, date));
+            } else if (date.getTime() < this.today.getTime()) {
+                // Past days (shouldn't happen since we start from today)
                 dayElement.classList.add('past');
-                // Past days are clickable
+                dayElement.innerHTML = `${dayNameDiv}${dateDiv}${remainingDiv}`;
                 dayElement.style.cursor = 'pointer';
                 dayElement.addEventListener('click', () => this.toggleDay(dayElement, date));
             } else {
-                // Future day - not clickable, but show notification if clicked
+                // Future days before vacation - not clickable
+                dayElement.innerHTML = `${dayNameDiv}${dateDiv}${remainingDiv}`;
                 dayElement.style.cursor = 'not-allowed';
                 dayElement.addEventListener('click', () => {
                     this.showNotification('לא ניתן לסמן ימים עתידיים');
@@ -164,15 +193,14 @@ ${remainingDiv}`;
         this.calendarGridElement.appendChild(dayElement);
     }
 
-    createVacationDay() {
-        const vacationElement = document.createElement('div');
-        vacationElement.className = 'calendar-day vacation-day';
-        vacationElement.textContent = 'מיקה טסה לקפריסין ✈️';
-        this.calendarGridElement.appendChild(vacationElement);
-    }
-
     toggleDay(dayElement, date) {
         const dateString = dayElement.dataset.date;
+        
+        // Don't allow marking vacation days
+        if (date >= this.vacationDate && date <= this.vacationEndDate) {
+            this.showNotification('לא ניתן לסמן ימי חופשה');
+            return;
+        }
         
         if (dayElement.classList.contains('marked')) {
             // Unmark the day
@@ -194,13 +222,6 @@ ${remainingDiv}`;
     updateCountdown() {
         const daysLeft = this.calculateDaysUntilVacation();
         this.daysLeftElement.textContent = daysLeft;
-        
-        // Update the table element with static days from 10/7/2025
-        if (this.daysRemainingTableElement) {
-            const staticDate = new Date('2025-07-10');
-            const staticDaysLeft = this.calculateRemainingDaysFromDate(staticDate);
-            this.daysRemainingTableElement.textContent = staticDaysLeft;
-        }
         
         // Special messages based on days left
         if (daysLeft <= 7) {
@@ -227,7 +248,6 @@ ${remainingDiv}`;
         }
     }
 
-
     updateEncouragement() {
         const randomMessage = this.encouragementMessages[
             Math.floor(Math.random() * this.encouragementMessages.length)
@@ -244,11 +264,11 @@ ${remainingDiv}`;
     showCelebration() {
         // Random celebration messages
         const celebrationMessages = [
-            'יופי מיקה! עוד יום קרוב יותר לחופשה בקפריסין!',
-            'כל הכבוד מיקה! המים הכחולים מחכים לך!',
-            'מעולה מיקה! עוד קצת והחופשה תתחיל!',
-            'נהדר מיקה! אתך הולכת ליהנות בקפריסין!',
-            'איזה יופי מיקה! החופשה מתקרבת!'
+            'יופי מיקה! עוד יום קרוב יותר לחופשה ביוון פיליון!',
+            'כל הכבוד מיקה! הרי הקנטאורים מחכים לך!',
+            'מעולה מיקה! עוד קצת והחופשה היוונית תתחיל!',
+            'נהדר מיקה! את הולכת ליהנות ביוון פיליון!',
+            'איזה יופי מיקה! החופשה היוונית מתקרבת!'
         ];
         
         const message = celebrationMessages[Math.floor(Math.random() * celebrationMessages.length)];
@@ -326,9 +346,9 @@ ${remainingDiv}`;
 
     saveProgress() {
         try {
-            // Set cookie to expire after vacation date (July 22, 2025)
-            const expirationDate = new Date('2025-07-23'); // Day after vacation
-            this.setCookie('mikaCountdownProgress', JSON.stringify(this.markedDays), expirationDate);
+            // Set cookie to expire after vacation date (August 28, 2025)
+            const expirationDate = new Date('2025-08-29'); // Day after vacation
+            this.setCookie('mikaGreeceCountdownProgress', JSON.stringify(this.markedDays), expirationDate);
         } catch (error) {
             console.error('Failed to save progress:', error);
         }
@@ -336,7 +356,7 @@ ${remainingDiv}`;
 
     loadProgress() {
         try {
-            const saved = this.getCookie('mikaCountdownProgress');
+            const saved = this.getCookie('mikaGreeceCountdownProgress');
             return saved ? JSON.parse(saved) : [];
         } catch (error) {
             console.error('Failed to load progress:', error);
@@ -403,30 +423,30 @@ ${remainingDiv}`;
         }, 4000);
     }
 
-    initializeCyprusFactsClick() {
-        // Add click functionality to the Cyprus facts section
-        const cyprusFactsSection = document.querySelector('.cyprus-facts');
-        const cyprusFactsHeader = cyprusFactsSection?.querySelector('h3');
-        const factItems = cyprusFactsSection?.querySelectorAll('.fact-item');
+    initializeGreeceFactsClick() {
+        // Add click functionality to the Greece facts section
+        const greeceFactsSection = document.querySelector('.cyprus-facts');
+        const greeceFactsHeader = greeceFactsSection?.querySelector('h3');
+        const factItems = greeceFactsSection?.querySelectorAll('.fact-item');
         
-        if (cyprusFactsSection) {
+        if (greeceFactsSection) {
             // Make the header clickable
-            if (cyprusFactsHeader) {
-                cyprusFactsHeader.style.cursor = 'pointer';
-                cyprusFactsHeader.style.transition = 'all 0.3s ease';
+            if (greeceFactsHeader) {
+                greeceFactsHeader.style.cursor = 'pointer';
+                greeceFactsHeader.style.transition = 'all 0.3s ease';
                 
-                cyprusFactsHeader.addEventListener('click', () => {
-                    this.openCyprusFactsPage();
+                greeceFactsHeader.addEventListener('click', () => {
+                    this.openGreeceFactsPage();
                 });
                 
-                cyprusFactsHeader.addEventListener('mouseenter', () => {
-                    cyprusFactsHeader.style.transform = 'scale(1.05)';
-                    cyprusFactsHeader.style.color = '#0083b0';
+                greeceFactsHeader.addEventListener('mouseenter', () => {
+                    greeceFactsHeader.style.transform = 'scale(1.05)';
+                    greeceFactsHeader.style.color = '#0083b0';
                 });
                 
-                cyprusFactsHeader.addEventListener('mouseleave', () => {
-                    cyprusFactsHeader.style.transform = 'scale(1)';
-                    cyprusFactsHeader.style.color = '';
+                greeceFactsHeader.addEventListener('mouseleave', () => {
+                    greeceFactsHeader.style.transform = 'scale(1)';
+                    greeceFactsHeader.style.color = '';
                 });
             }
             
@@ -436,7 +456,7 @@ ${remainingDiv}`;
                 factItem.style.transition = 'all 0.3s ease';
                 
                 factItem.addEventListener('click', () => {
-                    this.openCyprusFactsPage();
+                    this.openGreeceFactsPage();
                 });
                 
                 factItem.addEventListener('mouseenter', () => {
@@ -452,15 +472,173 @@ ${remainingDiv}`;
         }
     }
 
-    openCyprusFactsPage() {
+    openGreeceFactsPage() {
         // Show notification
-        this.showNotification('פותח דף עובדות על קפריסין מלא בתמונות ומידע מרתק!');
+        this.showNotification('פותח דף עובדות על יוון פיליון מלא בתמונות ומידע מרתק!');
         
         // Play click sound
         this.playClickSound();
         
-        // Open the Cyprus facts page in a new tab
-        window.open('cyprus-facts.html', '_blank');
+        // Open the Greece facts page in a new tab
+        window.open('greece-facts.html', '_blank');
+    }
+
+    // Enhanced Flight Day Methods
+    showFlightModal() {
+        // Create flight modal if it doesn't exist
+        if (!document.getElementById('flightModal')) {
+            this.createFlightModal();
+        }
+        
+        const flightModal = document.getElementById('flightModal');
+        flightModal.classList.add('show');
+        
+        // Play takeoff sound
+        this.playTakeoffSound();
+        
+        // Auto-close after 5 seconds
+        setTimeout(() => {
+            this.closeFlightModal();
+        }, 5000);
+    }
+
+    createFlightModal() {
+        const modal = document.createElement('div');
+        modal.id = 'flightModal';
+        modal.className = 'flight-modal';
+        modal.innerHTML = `
+            <div class="flight-modal-content">
+                <div class="flight-modal-header">
+                    <div class="takeoff-animation">
+                        <div class="airplane-takeoff">✈️</div>
+                    </div>
+                    <h2>🎉 יום הטיסה הגדול של מיקה! 🎉</h2>
+                </div>
+                <div class="flight-details">
+                    <div class="flight-info">
+                        <div class="flight-route">
+                            <span class="departure">🏠 ישראל</span>
+                            <span class="flight-arrow">✈️ ➡️</span>
+                            <span class="arrival">🇬🇷 יוון פיליון</span>
+                        </div>
+                        <div class="flight-time">🕐 טיסה: 14:30</div>
+                        <div class="flight-duration">⏱️ משך טיסה: 3 שעות</div>
+                        <div class="flight-excitement">🌟 החופשה מתחילה!</div>
+                    </div>
+                    <div class="flight-wishes">
+                        <p>🎊 מיקה, זהו היום שחיכית לו!</p>
+                        <p>🏔️ הרי הקנטאורים מחכים לך!</p>
+                        <p>🌊 המים הכחולים של יוון פיליון!</p>
+                        <p>✨ טיסה נעימה ובטוחה!</p>
+                    </div>
+                </div>
+                <div class="flight-confetti">
+                    <div class="confetti">🎊</div>
+                    <div class="confetti">🎉</div>
+                    <div class="confetti">⭐</div>
+                    <div class="confetti">✨</div>
+                    <div class="confetti">🎊</div>
+                    <div class="confetti">🎉</div>
+                </div>
+                <button class="close-flight-modal" onclick="window.mikaCountdown.closeFlightModal()">
+                    סגור ✈️
+                </button>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+    }
+
+    closeFlightModal() {
+        const flightModal = document.getElementById('flightModal');
+        if (flightModal) {
+            flightModal.classList.remove('show');
+        }
+    }
+
+    playFlightSound() {
+        // Create flight hover sound
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Airplane engine sound simulation
+            oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.3);
+            
+            gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        } catch (e) {
+            console.log('Flight sound played (audio not supported)');
+        }
+    }
+
+    playTakeoffSound() {
+        // Create takeoff sound
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Takeoff sound simulation
+            oscillator.frequency.setValueAtTime(100, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(500, audioContext.currentTime + 1);
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 1);
+        } catch (e) {
+            console.log('Takeoff sound played (audio not supported)');
+        }
+    }
+
+    // Create floating effects around flight day
+    createFlightDayFloatingEffects(dayElement) {
+        const rect = dayElement.getBoundingClientRect();
+        const emojis = ['🎈', '🎊', '✨', '⭐', '🌟', '💫', '🎉', '🔥'];
+        
+        // Create 6 floating elements around the flight day
+        for (let i = 0; i < 6; i++) {
+            const floatingElement = document.createElement('div');
+            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            floatingElement.textContent = emoji;
+            floatingElement.style.position = 'fixed';
+            floatingElement.style.fontSize = '1.5rem';
+            floatingElement.style.pointerEvents = 'none';
+            floatingElement.style.zIndex = '1000';
+            
+            // Random position around the flight day
+            const angle = (360 / 6) * i + Math.random() * 60;
+            const distance = 80 + Math.random() * 40;
+            const x = rect.left + rect.width/2 + Math.cos(angle * Math.PI/180) * distance;
+            const y = rect.top + rect.height/2 + Math.sin(angle * Math.PI/180) * distance;
+            
+            floatingElement.style.left = x + 'px';
+            floatingElement.style.top = y + 'px';
+            floatingElement.style.animation = `flightDayFloat 3s ease-out forwards`;
+            
+            document.body.appendChild(floatingElement);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (floatingElement.parentNode) {
+                    floatingElement.remove();
+                }
+            }, 3000);
+        }
     }
 }
 
@@ -532,6 +710,6 @@ style.textContent = `
 document.head.appendChild(style);
 
 // Console messages for Mika
-console.log('💙 לוח הספירה של מיקה לחופשה בקפריסין נטען בהצלחה! 💙');
-console.log('🏖️ מיקה, החופשה שלך הולכת להיות מדהימה! 🏖️');
-console.log('🌊 המים הכחולים של קפריסין מחכים לך! 🌊');
+console.log('💙 לוח הספירה של מיקה לחופשה ביוון פיליון נטען בהצלחה! 💙');
+console.log('🇬🇷 מיקה, החופשה שלך ביוון פיליון הולכת להיות מדהימה! 🇬🇷');
+console.log('🏔️ הרי הקנטאורים מחכים לך! 🏔️');

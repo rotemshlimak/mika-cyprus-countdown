@@ -1,19 +1,19 @@
 /* Mika's Azure Cyprus Vacation Countdown Chart - Hebrew RTL */
 
 :root {
-    /* Azure Color Palette */
-    --azure-light: #F0F8FF;
-    --azure-medium: #87CEEB;
-    --azure-deep: #4682B4;
-    --azure-dark: #191970;
-    --azure-bright: #00BFFF;
-    --azure-sky: #87CEFA;
+    /* Light Green Color Palette */
+    --green-light: #F0FFF0;
+    --green-medium: #90EE90;
+    --green-deep: #32CD32;
+    --green-dark: #228B22;
+    --green-bright: #00FF7F;
+    --green-sky: #98FB98;
     --pearl-white: #F8F8FF;
     --coral-accent: #FF7F50;
     --gold-sunset: #FFD700;
-    --shadow-light: rgba(70, 130, 180, 0.2);
-    --shadow-medium: rgba(70, 130, 180, 0.4);
-    --shadow-dark: rgba(25, 25, 112, 0.6);
+    --shadow-light: rgba(50, 205, 50, 0.2);
+    --shadow-medium: rgba(50, 205, 50, 0.4);
+    --shadow-dark: rgba(34, 139, 34, 0.6);
 }
 
 * {
@@ -24,15 +24,15 @@
 
 body {
     font-family: 'Assistant', sans-serif;
-    background: linear-gradient(135deg, var(--azure-light) 0%, var(--azure-medium) 50%, var(--azure-deep) 100%);
+    background: linear-gradient(135deg, var(--green-light) 0%, var(--green-medium) 50%, var(--green-deep) 100%);
     min-height: 100vh;
-    color: var(--azure-dark);
+    color: var(--green-dark);
     position: relative;
     overflow-x: hidden;
     direction: rtl;
 }
 
-/* Ocean Background */
+/* Nature Background */
 .ocean-background {
     position: fixed;
     top: 0;
@@ -40,9 +40,9 @@ body {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 80%, rgba(135, 206, 250, 0.3) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(0, 191, 255, 0.2) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(70, 130, 180, 0.15) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(144, 238, 144, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 127, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(50, 205, 50, 0.15) 0%, transparent 50%);
     z-index: -2;
     animation: oceanWave 12s ease-in-out infinite;
 }
@@ -65,7 +65,7 @@ body {
 
 .floating-bubbles::before,
 .floating-bubbles::after {
-    content: '💙';
+    content: '💚';
     position: absolute;
     font-size: 20px;
     animation: bubbleFloat 8s infinite ease-in-out;
@@ -106,7 +106,7 @@ body {
     text-align: center;
     margin-bottom: 30px;
     padding: 30px;
-    background: linear-gradient(135deg, var(--azure-bright), var(--azure-deep));
+    background: linear-gradient(135deg, var(--green-bright), var(--green-deep));
     border-radius: 15px;
     color: white;
     position: relative;
@@ -172,12 +172,12 @@ body {
 }
 
 .info-card {
-    background: linear-gradient(135deg, var(--pearl-white), var(--azure-light));
+    background: linear-gradient(135deg, var(--pearl-white), var(--green-light));
     border-radius: 15px;
     padding: 25px;
     text-align: center;
     box-shadow: 0 10px 30px var(--shadow-light);
-    border: 2px solid var(--azure-medium);
+    border: 2px solid var(--green-medium);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -189,7 +189,7 @@ body {
 .main-counter .counter-number {
     font-family: 'Fredoka One', cursive;
     font-size: 4rem;
-    color: var(--azure-deep);
+    color: var(--green-deep);
     text-shadow: 2px 2px 4px var(--shadow-light);
     animation: counterPulse 2s ease-in-out infinite;
 }
@@ -201,7 +201,7 @@ body {
 
 .counter-label {
     font-size: 1.2rem;
-    color: var(--azure-dark);
+    color: var(--green-dark);
     font-weight: 600;
     margin-top: 10px;
 }
@@ -209,7 +209,7 @@ body {
 /* Progress Card */
 .progress-label {
     font-size: 1.1rem;
-    color: var(--azure-dark);
+    color: var(--green-dark);
     font-weight: 600;
     margin-bottom: 15px;
 }
@@ -217,17 +217,17 @@ body {
 .progress-bar {
     width: 100%;
     height: 30px;
-    background: var(--azure-light);
+    background: var(--green-light);
     border-radius: 15px;
     position: relative;
     overflow: hidden;
-    border: 2px solid var(--azure-medium);
+    border: 2px solid var(--green-medium);
     margin-bottom: 15px;
 }
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--azure-bright), var(--azure-deep));
+    background: linear-gradient(90deg, var(--green-bright), var(--green-deep));
     border-radius: 13px;
     transition: width 0.6s ease;
     position: relative;
@@ -255,13 +255,13 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: var(--azure-dark);
+    color: var(--green-dark);
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
 }
 
 .marked-days {
-    color: var(--azure-deep);
+    color: var(--green-deep);
     font-weight: 600;
 }
 
@@ -274,13 +274,13 @@ body {
 
 .destination-date {
     font-size: 1rem;
-    color: var(--azure-deep);
+    color: var(--green-deep);
 }
 
 .date-display {
     font-family: 'Fredoka One', cursive;
     font-size: 1.8rem;
-    color: var(--azure-dark);
+    color: var(--green-dark);
     text-shadow: 1px 1px 2px var(--shadow-light);
 }
 
@@ -298,14 +298,14 @@ body {
 .countdown-table {
     width: 100%;
     border-collapse: collapse;
-    background: linear-gradient(135deg, var(--azure-light), var(--pearl-white));
+    background: linear-gradient(135deg, var(--green-light), var(--pearl-white));
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 20px var(--shadow-light);
 }
 
 .countdown-table th {
-    background: linear-gradient(135deg, var(--azure-bright), var(--azure-deep));
+    background: linear-gradient(135deg, var(--green-bright), var(--green-deep));
     color: white;
     padding: 15px;
     font-family: 'Fredoka One', cursive;
@@ -319,7 +319,7 @@ body {
     text-align: center;
     font-family: 'Fredoka One', cursive;
     font-size: 3rem;
-    color: var(--azure-deep);
+    color: var(--green-deep);
     text-shadow: 1px 1px 2px var(--shadow-light);
     animation: counterPulse 2s ease-in-out infinite;
     border: none;
@@ -327,12 +327,12 @@ body {
 
 /* Calendar Section */
 .calendar-section {
-    background: linear-gradient(135deg, var(--pearl-white), var(--azure-light));
+    background: linear-gradient(135deg, var(--pearl-white), var(--green-light));
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
     box-shadow: 0 15px 40px var(--shadow-light);
-    border: 3px solid var(--azure-medium);
+    border: 3px solid var(--green-medium);
 }
 
 .calendar-header {
@@ -343,13 +343,13 @@ body {
 .calendar-header h2 {
     font-family: 'Fredoka One', cursive;
     font-size: 2rem;
-    color: var(--azure-deep);
+    color: var(--green-deep);
     margin-bottom: 10px;
 }
 
 .calendar-header p {
     font-size: 1.1rem;
-    color: var(--azure-dark);
+    color: var(--green-dark);
 }
 
 .calendar-grid {
@@ -362,15 +362,15 @@ body {
 
 .calendar-day {
     aspect-ratio: 1;
-    background: linear-gradient(135deg, var(--azure-light), var(--azure-medium));
-    border: 2px solid var(--azure-deep);
+    background: linear-gradient(135deg, var(--green-light), var(--green-medium));
+    border: 2px solid var(--green-deep);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 0.9rem;
     font-weight: bold;
-    color: var(--azure-dark);
+    color: var(--green-dark);
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
@@ -384,7 +384,7 @@ body {
 .calendar-day:hover {
     transform: scale(1.1);
     box-shadow: 0 5px 15px var(--shadow-medium);
-    background: linear-gradient(135deg, var(--azure-bright), var(--azure-deep));
+    background: linear-gradient(135deg, var(--green-bright), var(--green-deep));
     color: white;
 }
 
@@ -420,7 +420,7 @@ body {
 }
 
 .calendar-day.marked {
-    background: linear-gradient(135deg, var(--azure-medium), var(--azure-deep));
+    background: linear-gradient(135deg, var(--green-medium), var(--green-deep));
     color: white;
 }
 
@@ -436,18 +436,257 @@ body {
     100% { transform: scale(1) rotate(360deg); opacity: 1; }
 }
 
+/* Flight Day Styling - Same as Today */
+.calendar-day.flight-day {
+    background: linear-gradient(135deg, var(--gold-sunset), var(--coral-accent)) !important;
+    color: white !important;
+    animation: todayGlow 2s ease-in-out infinite alternate !important;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.6) !important;
+    font-weight: bold !important;
+    z-index: 15 !important;
+    position: relative !important;
+    overflow: visible !important;
+    font-size: 0.9rem !important;
+    padding: 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    min-height: 120px !important;
+    text-align: center !important;
+    white-space: pre-line !important;
+    line-height: 1.2 !important;
+    border: 2px solid var(--green-deep) !important;
+    border-radius: 12px !important;
+}
+
+.calendar-day.flight-day::before {
+    content: '👑';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    animation: crownFloat 3s ease-in-out infinite;
+    z-index: 21;
+}
+
+.calendar-day.flight-day::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: linear-gradient(45deg, transparent, rgba(255,215,0,0.3), transparent, rgba(255,20,147,0.3), transparent);
+    border-radius: 20px;
+    animation: royalAura 4s linear infinite;
+    z-index: -1;
+}
+
+@keyframes crownFloat {
+    0%, 100% { 
+        transform: translateX(-50%) translateY(0) rotate(-5deg); 
+        text-shadow: 0 0 20px rgba(255,215,0,0.8);
+    }
+    50% { 
+        transform: translateX(-50%) translateY(-10px) rotate(5deg); 
+        text-shadow: 0 0 30px rgba(255,215,0,1);
+    }
+}
+
+@keyframes royalAura {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes ultraFlightDaySpectacular {
+    0% { 
+        box-shadow: 
+            0 0 50px rgba(255, 215, 0, 1), 
+            0 0 100px rgba(255, 107, 53, 0.9), 
+            0 0 150px rgba(255, 165, 0, 0.8),
+            0 0 200px rgba(255, 20, 147, 0.6),
+            0 0 250px rgba(138, 43, 226, 0.4);
+        transform: scale(1.4) rotate(-2deg);
+        filter: brightness(1.1);
+    }
+    50% {
+        box-shadow: 
+            0 0 70px rgba(255, 215, 0, 1), 
+            0 0 140px rgba(255, 107, 53, 1), 
+            0 0 210px rgba(255, 165, 0, 0.9),
+            0 0 280px rgba(255, 20, 147, 0.8),
+            0 0 350px rgba(138, 43, 226, 0.6);
+        transform: scale(1.5) rotate(0deg);
+        filter: brightness(1.3);
+    }
+    100% { 
+        box-shadow: 
+            0 0 90px rgba(255, 215, 0, 1), 
+            0 0 180px rgba(255, 107, 53, 1), 
+            0 0 270px rgba(255, 165, 0, 1),
+            0 0 360px rgba(255, 20, 147, 0.9),
+            0 0 450px rgba(138, 43, 226, 0.7);
+        transform: scale(1.6) rotate(2deg);
+        filter: brightness(1.5);
+    }
+}
+
+.calendar-day.flight-day:hover {
+    transform: scale(1.7) !important;
+    box-shadow: 
+        0 0 120px rgba(255, 215, 0, 1), 
+        0 0 240px rgba(255, 107, 53, 1), 
+        0 0 360px rgba(255, 165, 0, 1),
+        0 0 480px rgba(255, 20, 147, 1),
+        0 0 600px rgba(138, 43, 226, 0.8) !important;
+    filter: brightness(1.8) !important;
+}
+
+/* Flight Day Elements */
+.flight-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 4px 8px;
+    width: 100%;
+}
+
+.flying-airplane {
+    font-size: 1.2rem;
+    animation: airplaneFly 2s ease-in-out infinite;
+}
+
+@keyframes airplaneFly {
+    0%, 100% { transform: translateX(-3px) rotate(-5deg); }
+    50% { transform: translateX(3px) rotate(5deg); }
+}
+
+.flight-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.flight-date {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    padding: 2px 6px;
+    margin: 2px 0;
+}
+
+.flight-destination {
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    margin: 2px 0;
+}
+
+.flight-time {
+    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: 2px 0;
+}
+
+.flight-excitement {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: #FFFF00;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    animation: excitementPulse 1s ease-in-out infinite;
+}
+
+@keyframes excitementPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.boarding-pass-perforation {
+    position: absolute;
+    left: -2px;
+    top: 30%;
+    bottom: 30%;
+    width: 4px;
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 3px,
+        #FFD700 3px,
+        #FFD700 6px
+    );
+    border-radius: 2px;
+}
+
+.flight-sparkles {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    display: flex;
+    gap: 2px;
+    font-size: 0.8rem;
+}
+
+.sparkle {
+    animation: sparkleRotate 2s linear infinite;
+}
+
+.sparkle:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.sparkle:nth-child(3) {
+    animation-delay: 1s;
+}
+
+@keyframes sparkleRotate {
+    0% { transform: rotate(0deg) scale(1); opacity: 1; }
+    50% { transform: rotate(180deg) scale(1.2); opacity: 0.8; }
+    100% { transform: rotate(360deg) scale(1); opacity: 1; }
+}
+
+/* Pre-Flight Day Styling */
+.calendar-day.pre-flight-day {
+    background: linear-gradient(135deg, #FF6B35, #FF8C00) !important;
+    color: white !important;
+    border: 2px solid #FF6B35 !important;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.6) !important;
+    animation: preFlightGlow 2s ease-in-out infinite alternate !important;
+    transform: scale(1.1) !important;
+}
+
+@keyframes preFlightGlow {
+    0% { 
+        box-shadow: 0 0 20px rgba(255, 107, 53, 0.6);
+        transform: scale(1.1);
+    }
+    100% { 
+        box-shadow: 0 0 30px rgba(255, 107, 53, 0.8);
+        transform: scale(1.15);
+    }
+}
+
 /* Month Headers */
 .month-header {
     grid-column: 1 / -1;
     text-align: center;
     font-family: 'Fredoka One', cursive;
     font-size: 1.5rem;
-    color: var(--azure-deep);
-    background: linear-gradient(135deg, var(--azure-light), var(--pearl-white));
+    color: var(--green-deep);
+    background: linear-gradient(135deg, var(--green-light), var(--pearl-white));
     border-radius: 10px;
     padding: 15px;
     margin: 10px 0;
-    border: 2px solid var(--azure-medium);
+    border: 2px solid var(--green-medium);
 }
 
 /* Encouragement Section */
@@ -456,12 +695,12 @@ body {
 }
 
 .encouragement-card {
-    background: linear-gradient(135deg, var(--azure-light), var(--azure-medium));
+    background: linear-gradient(135deg, var(--green-light), var(--green-medium));
     border-radius: 20px;
     padding: 25px;
     text-align: center;
     box-shadow: 0 10px 30px var(--shadow-light);
-    border: 3px solid var(--azure-bright);
+    border: 3px solid var(--green-bright);
     position: relative;
     overflow: hidden;
 }
@@ -495,7 +734,7 @@ body {
 
 .encouragement-text {
     font-size: 1.3rem;
-    color: var(--azure-dark);
+    color: var(--green-dark);
     font-weight: 600;
     line-height: 1.4;
     position: relative;
@@ -504,18 +743,18 @@ body {
 
 /* Cyprus Dreams Section */
 .cyprus-dreams {
-    background: linear-gradient(135deg, var(--pearl-white), var(--azure-light));
+    background: linear-gradient(135deg, var(--pearl-white), var(--green-light));
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
     box-shadow: 0 15px 40px var(--shadow-light);
-    border: 3px solid var(--azure-medium);
+    border: 3px solid var(--green-medium);
 }
 
 .cyprus-dreams h3 {
     font-family: 'Fredoka One', cursive;
     font-size: 1.8rem;
-    color: var(--azure-deep);
+    color: var(--green-deep);
     text-align: center;
     margin-bottom: 25px;
 }
@@ -527,15 +766,15 @@ body {
 }
 
 .dream-item {
-    background: linear-gradient(135deg, var(--azure-light), var(--azure-medium));
+    background: linear-gradient(135deg, var(--green-light), var(--green-medium));
     border-radius: 15px;
     padding: 20px;
     text-align: center;
     font-size: 1.1rem;
-    color: var(--azure-dark);
+    color: var(--green-dark);
     font-weight: 600;
     box-shadow: 0 5px 15px var(--shadow-light);
-    border: 2px solid var(--azure-bright);
+    border: 2px solid var(--green-bright);
     transition: transform 0.3s ease;
 }
 
@@ -546,12 +785,12 @@ body {
 
 /* Cyprus Facts Section */
 .cyprus-facts {
-    background: linear-gradient(135deg, var(--azure-light), var(--azure-sky));
+    background: linear-gradient(135deg, var(--green-light), var(--green-sky));
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 30px;
     box-shadow: 0 15px 40px var(--shadow-medium);
-    border: 3px solid var(--azure-bright);
+    border: 3px solid var(--green-bright);
     position: relative;
     overflow: hidden;
 }
@@ -575,7 +814,7 @@ body {
 .cyprus-facts h3 {
     font-family: 'Fredoka One', cursive;
     font-size: 1.8rem;
-    color: var(--azure-deep);
+    color: var(--green-deep);
     text-align: center;
     margin-bottom: 25px;
     position: relative;
@@ -592,15 +831,15 @@ body {
 }
 
 .fact-item {
-    background: linear-gradient(135deg, var(--pearl-white), var(--azure-light));
+    background: linear-gradient(135deg, var(--pearl-white), var(--green-light));
     border-radius: 15px;
     padding: 20px;
     text-align: center;
     font-size: 1.1rem;
-    color: var(--azure-dark);
+    color: var(--green-dark);
     font-weight: 600;
     box-shadow: 0 8px 20px var(--shadow-light);
-    border: 2px solid var(--azure-medium);
+    border: 2px solid var(--green-medium);
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
@@ -613,16 +852,16 @@ body {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(135, 206, 235, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(144, 238, 144, 0.3), transparent);
     transition: left 0.6s ease;
 }
 
 .fact-item:hover {
     transform: scale(1.05) rotate(-1deg);
     box-shadow: 0 12px 30px var(--shadow-medium);
-    background: linear-gradient(135deg, var(--azure-light), var(--azure-medium));
+    background: linear-gradient(135deg, var(--green-light), var(--green-medium));
     color: white;
-    border-color: var(--azure-bright);
+    border-color: var(--green-bright);
 }
 
 .fact-item:hover::before {
@@ -637,7 +876,7 @@ body {
 .footer {
     text-align: center;
     padding: 25px;
-    background: linear-gradient(135deg, var(--azure-deep), var(--azure-dark));
+    background: linear-gradient(135deg, var(--green-deep), var(--green-dark));
     border-radius: 15px;
     color: white;
     margin-top: 20px;
@@ -680,12 +919,12 @@ body {
 }
 
 .celebration-content {
-    background: linear-gradient(135deg, var(--pearl-white), var(--azure-light));
+    background: linear-gradient(135deg, var(--pearl-white), var(--green-light));
     border-radius: 20px;
     padding: 40px;
     text-align: center;
     box-shadow: 0 20px 60px var(--shadow-dark);
-    border: 4px solid var(--azure-bright);
+    border: 4px solid var(--green-bright);
     animation: celebrationBounce 0.6s ease;
 }
 
@@ -709,18 +948,18 @@ body {
 .celebration-content h2 {
     font-family: 'Fredoka One', cursive;
     font-size: 2.5rem;
-    color: var(--azure-deep);
+    color: var(--green-deep);
     margin-bottom: 15px;
 }
 
 .celebration-content p {
     font-size: 1.3rem;
-    color: var(--azure-dark);
+    color: var(--green-dark);
     margin-bottom: 25px;
 }
 
 .close-modal {
-    background: linear-gradient(135deg, var(--azure-bright), var(--azure-deep));
+    background: linear-gradient(135deg, var(--green-bright), var(--green-deep));
     color: white;
     border: none;
     border-radius: 12px;
@@ -744,14 +983,14 @@ body {
 }
 
 .notification {
-    background: linear-gradient(135deg, var(--azure-light), var(--azure-medium));
+    background: linear-gradient(135deg, var(--green-light), var(--green-medium));
     border-radius: 15px;
     padding: 15px 25px;
     margin-bottom: 15px;
-    color: var(--azure-dark);
+    color: var(--green-dark);
     font-weight: 600;
     box-shadow: 0 10px 30px var(--shadow-medium);
-    border: 2px solid var(--azure-bright);
+    border: 2px solid var(--green-bright);
     transform: translateX(100%);
     transition: transform 0.3s ease;
     min-width: 300px;
@@ -759,6 +998,262 @@ body {
 
 .notification.show {
     transform: translateX(0);
+}
+
+/* Flight Modal Styles */
+.flight-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(10px);
+}
+
+.flight-modal.show {
+    display: flex;
+    animation: flightModalAppear 0.6s ease;
+}
+
+@keyframes flightModalAppear {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+.flight-modal-content {
+    background: linear-gradient(135deg, #FF6B35, #FF8C00, #FFD700, #FFA500);
+    border-radius: 25px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(255, 107, 53, 0.8);
+    border: 5px solid #FFD700;
+    animation: flightModalBounce 0.8s ease;
+    position: relative;
+    overflow: hidden;
+    max-width: 600px;
+    width: 90%;
+}
+
+@keyframes flightModalBounce {
+    0% { transform: scale(0.3) rotate(-10deg); }
+    50% { transform: scale(1.1) rotate(5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+.flight-modal-header {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.takeoff-animation {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.airplane-takeoff {
+    font-size: 2rem;
+    animation: takeoffFly 4s ease-in-out infinite;
+    position: absolute;
+    top: 0;
+}
+
+@keyframes takeoffFly {
+    0% { 
+        left: -50px; 
+        transform: translateY(0) rotate(-10deg); 
+    }
+    50% { 
+        left: 50%; 
+        transform: translateY(-20px) rotate(0deg); 
+    }
+    100% { 
+        left: 150px; 
+        transform: translateY(-10px) rotate(10deg); 
+    }
+}
+
+.flight-modal-header h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    margin-top: 20px;
+    animation: headerPulse 2s ease-in-out infinite;
+}
+
+@keyframes headerPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.flight-details {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px 0;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.flight-info {
+    margin-bottom: 20px;
+}
+
+.flight-route {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.flight-arrow {
+    font-size: 1.5rem;
+    animation: arrowBounce 1s ease-in-out infinite;
+}
+
+@keyframes arrowBounce {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
+
+.departure, .arrival {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 10px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.flight-time, .flight-duration, .flight-excitement {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 8px 15px;
+    display: inline-block;
+}
+
+.flight-excitement {
+    color: #FFFF00;
+    animation: excitementFlash 2s ease-in-out infinite;
+}
+
+@keyframes excitementFlash {
+    0%, 100% { text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+    50% { text-shadow: 1px 1px 2px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,0,0.8); }
+}
+
+.flight-wishes {
+    text-align: center;
+}
+
+.flight-wishes p {
+    font-size: 1.2rem;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 10px 20px;
+    animation: wishFloat 3s ease-in-out infinite;
+}
+
+.flight-wishes p:nth-child(2) { animation-delay: 0.5s; }
+.flight-wishes p:nth-child(3) { animation-delay: 1s; }
+.flight-wishes p:nth-child(4) { animation-delay: 1.5s; }
+
+@keyframes wishFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.flight-confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: confettiFall 3s linear infinite;
+}
+
+.confetti:nth-child(1) { left: 10%; animation-delay: 0s; }
+.confetti:nth-child(2) { left: 20%; animation-delay: 0.5s; }
+.confetti:nth-child(3) { left: 30%; animation-delay: 1s; }
+.confetti:nth-child(4) { left: 70%; animation-delay: 1.5s; }
+.confetti:nth-child(5) { left: 80%; animation-delay: 2s; }
+.confetti:nth-child(6) { left: 90%; animation-delay: 2.5s; }
+
+@keyframes confettiFall {
+    0% { 
+        top: -50px; 
+        transform: rotate(0deg); 
+        opacity: 1; 
+    }
+    100% { 
+        top: 100%; 
+        transform: rotate(360deg); 
+        opacity: 0; 
+    }
+}
+
+.close-flight-modal {
+    background: linear-gradient(135deg, #FF6B35, #FF8C00);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 15px 30px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(255, 107, 53, 0.5);
+    margin-top: 20px;
+}
+
+.close-flight-modal:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.8);
+}
+
+/* Flight Day Floating Effects Animation */
+@keyframes flightDayFloat {
+    0% { 
+        transform: translateY(0) rotate(0deg) scale(1); 
+        opacity: 1; 
+    }
+    50% { 
+        transform: translateY(-30px) rotate(180deg) scale(1.2); 
+        opacity: 0.8; 
+    }
+    100% { 
+        transform: translateY(-60px) rotate(360deg) scale(0.5); 
+        opacity: 0; 
+    }
 }
 
 /* Responsive Design */

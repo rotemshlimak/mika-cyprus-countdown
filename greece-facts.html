@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>עובדות מעניינות על יוון פיליון - מיקה</title>
+    
+    <!-- Meta tags -->
+    <meta name="description" content="עובדות מעניינות על יוון פיליון עם תמונות ומידע מפורט למיקה">
+    <meta name="author" content="Mika's Greece Pilion Facts">
+    <meta name="keywords" content="Greece, Pilion, יוון, פיליון, עובדות, תמונות, מידע, קנטאורים">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇬🇷</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Fredoka+One:wght@400&family=Assistant:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .greece-facts-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%);
+            min-height: 100vh;
+            font-family: 'Assistant', sans-serif;
+        }
+        
+        .facts-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .facts-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            font-family: 'Assistant', sans-serif;
+        }
+        
+        .back-button:hover {
+            background: #ff5252;
+            transform: scale(1.05);
+        }
+        
+        .fact-section {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 30px 0;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .fact-section h2 {
+            color: #0083b0;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .fact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .fact-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .fact-image {
+            text-align: center;
+        }
+        
+        .fact-image img {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .image-placeholder {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            background: linear-gradient(45deg, #87CEEB, #4682B4);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .fun-facts {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #00b4db;
+        }
+        
+        .fun-facts h3 {
+            color: #0083b0;
+            margin-bottom: 15px;
+        }
+        
+        .fun-facts ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .fun-facts li {
+            padding: 8px 0;
+            position: relative;
+            padding-right: 25px;
+        }
+        
+        .fun-facts li:before {
+            content: "🌟";
+            position: absolute;
+            right: 0;
+            top: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .fact-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .facts-header h1 {
+                font-size: 2em;
+            }
+            
+            .back-button {
+                position: static;
+                margin-bottom: 20px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="greece-facts-page">
+        <button class="back-button" onclick="goBack()">← חזרה ללוח הספירה</button>
+        
+        <div class="facts-header">
+            <h1>🇬🇷 עובדות מדהימות על יוון פיליון למיקה! 🇬🇷</h1>
+            <p>גלי את כל הסודות והקסם של הר הקנטאורים הקסום!</p>
+        </div>
+
+        <div class="fact-section" id="centaur-mountain">
+            <h2>🏔️ הרי פיליון - הר הקנטאורים מהמיתולוגיה היוונית</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>הרי פיליון הם הר קסום במרכז יוון, שבו לפי המיתולוגיה היוונית חיו הקנטאורים - יצורים חצי אדם וחצי סוס. ההר מכוסה ביערות בוק עתיקים ומציע נופים עוצרי נשימה.</p>
+                    <div class="fun-facts">
+                        <h3>עובדות מעניינות על הר הקנטאורים:</h3>
+                        <ul>
+                            <li>גובה ההר מגיע ל-1,624 מטרים</li>
+                            <li>מכוסה ביערות בוק עתיקים בני מאות שנים</li>
+                            <li>בית לקנטאור חירון המפורסם מהמיתולוגיה</li>
+                            <li>24 כפרי אבן מסורתיים פזורים על ההר</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🏔️</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="pelion-train">
+            <h2>🚂 רכבת פיליון ההיסטורית במסלול מדהים</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>רכבת פיליון הקטנה והמקסימה נוסעת במסלול הכי יפה ביוון. הרכבת העתיקה מטיילת דרך יערות, גשרים, ומנהרות עם נופים עוצרי נשימה של הר והים.</p>
+                    <div class="fun-facts">
+                        <h3>עובדות מרתקות על רכבת פיליון:</h3>
+                        <ul>
+                            <li>נבנתה בשנת 1895 על ידי מהנדסים איטלקיים</li>
+                            <li>מסלול של 60 קילומטרים דרך הרים ויערות</li>
+                            <li>עוברת על 15 גשרים ודרך 9 מנהרות</li>
+                            <li>מכונה "הרכבת הקטנה של פיליון"</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🚂</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="hidden-beaches">
+            <h2>🏖️ חופים סמויים כמו מיליופוטמוס ופאקטולוס</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>פיליון מתהדר בחופים סמויים ומדהימים שמסתתרים בין הסלעים. החופים הללו מציעים מים צלולים, חלוקי נחל, ושלווה מוחלטת.</p>
+                    <div class="fun-facts">
+                        <h3>החופים הסמויים המפורסמים:</h3>
+                        <ul>
+                            <li>מיליופוטמוס - חוף עם מים צלולים וחלוקי נחל</li>
+                            <li>פאקטולוס - חוף קטן ואינטימי בין הסלעים</li>
+                            <li>חוף אגיוס איואניס - חוף חול זהוב</li>
+                            <li>חוף קיסוס - חוף ירוק עם עצים עד הים</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🏖️</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="ancient-forests">
+            <h2>🌿 יערות בוק עתיקים וטבע יוצא דופן</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>יערות הבוק של פיליון הם מהעתיקים ביוון. העצים הענקיים יוצרים כיסוי צפוף שמסנן את האור ויוצר אווירה קסומה של יער אגדות.</p>
+                    <div class="fun-facts">
+                        <h3>הטבע המיוחד של פיליון:</h3>
+                        <ul>
+                            <li>עצי בוק בני מאות שנים</li>
+                            <li>יותר מ-1,500 מיני צמחים שונים</li>
+                            <li>בית לחיות בר נדירות</li>
+                            <li>מעיינות מים קרירים וצלולים</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🌿</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="stone-villages">
+            <h2>🏘️ כפרים אבן מסורתיים כמו ויציצה</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>הכפרים המסורתיים של פיליון בנויים מאבן אפורה מקומית ומציעים אדריכלות יוונית מסורתית. הכפרים מוקפים ביערות ומציעים נופים מדהימים.</p>
+                    <div class="fun-facts">
+                        <h3>הכפרים המפורסמים:</h3>
+                        <ul>
+                            <li>ויציצה - כפר סקי חורפי מקסים</li>
+                            <li>מקריניצה - כפר עם כיכר מרכזית יפה</li>
+                            <li>צגארדה - כפר עם נוף לים</li>
+                            <li>פורטריה - כפר עם בתי קפה מסורתיים</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🏘️</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="centaur-legend">
+            <h2>🐎 אגדת הקנטאורים - יצורים חצי אדם חצי סוס</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>לפי המיתולוגיה היוונית, הקנטאורים חיו בהרי פיליון. הם היו יצורים חצי אדם חצי סוס, רובם פראיים אך חירון היה חכם ומורה לגיבורים.</p>
+                    <div class="fun-facts">
+                        <h3>הקנטאורים המפורסמים:</h3>
+                        <ul>
+                            <li>חירון - הקנטאור החכם שלימד את אכילס</li>
+                            <li>פולוס - קנטאור ידידותי</li>
+                            <li>נסוס - קנטאור שניסה לחטוף את דיאנירה</li>
+                            <li>אורסוס - קנטאור שומר היערות</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🐎</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="local-honey">
+            <h2>🍯 דבש מקומי מפורסם מהרי פיליון</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>דבש פיליון נחשב לאחד הטובים ביוון. הדבורים אוספות צוף מפרחים בריים ומעצי הבוק, מה שיוצר דבש עם טעם מיוחד ועשיר.</p>
+                    <div class="fun-facts">
+                        <h3>הדבש המיוחד של פיליון:</h3>
+                        <ul>
+                            <li>דבש אורן - מעצי האורן הגבוהים</li>
+                            <li>דבש בוק - מעצי הבוק העתיקים</li>
+                            <li>דבש פרחים - מפרחים בריים</li>
+                            <li>דבש ברווז - מצמח הברווז המקומי</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🍯</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="greek-mythology">
+            <h2>🏛️ מיתולוגיה יוונית ואגדות עתיקות</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>פיליון מלא בסיפורי מיתולוגיה יוונית. כאן לימד חירון את הגיבורים הגדולים, וכאן התחילו הרפתקאות רבות של האגדות היווניות.</p>
+                    <div class="fun-facts">
+                        <h3>אגדות מפיליון:</h3>
+                        <ul>
+                            <li>חירון לימד את אכילס, אסקלפיוס וג'ייסון</li>
+                            <li>הארגונאוטים החלו את המסע שלהם מכאן</li>
+                            <li>המקום שבו נולדו האגדות הגדולות</li>
+                            <li>מקום מפגש של אלים ובני תמותה</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🏛️</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="mediterranean-sun">
+            <h2>☀️ השמש הים תיכונית זורחת על הרים ירוקים</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>האקלים הים תיכוני של פיליון מושלם - קיץ חם ויבש, חורף מתון, ושמש רבה. השילוב של הרים ירוקים עם אור זהוב יוצר נופים קסומים.</p>
+                    <div class="fun-facts">
+                        <h3>האקלים המושלם:</h3>
+                        <ul>
+                            <li>קיץ חם עם רוחות ים נעימות</li>
+                            <li>חורף מתון עם שלג על הפסגות</li>
+                            <li>אביב עם פריחות מדהימות</li>
+                            <li>סתיו עם צבעים חמים ויפים</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">☀️</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="mediterranean-flora">
+            <h2>🌸 צמחיה ים תיכונית ופרחים בריים</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>פיליון מתהדר בצמחיה ים תיכונית עשירה. באביב, כל ההר מתכסה בפרחים בריים צבעוניים שיוצרים שטיח פרחים מדהים.</p>
+                    <div class="fun-facts">
+                        <h3>פרחי הבר של פיליון:</h3>
+                        <ul>
+                            <li>אורכידיאות בר נדירות</li>
+                            <li>פרגים אדומים בשדות</li>
+                            <li>צבעונים סגולים וכחולים</li>
+                            <li>שושנות בר ורודות</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🌸</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="greek-dolphins">
+            <h2>🐬 דולפינים משחקים בכל חופי יוון</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>בחופי פיליון, כמו בכל יוון, אפשר לראות דולפינים משחקים במים. הם מגיעים קרוב לחוף ולפעמים אפשר לראות אותם קופצים מהמים.</p>
+                    <div class="fun-facts">
+                        <h3>דולפינים בחופי פיליון:</h3>
+                        <ul>
+                            <li>דולפינים מצויים עם חיוך תמיד</li>
+                            <li>דולפינים מפוספסים מהירים</li>
+                            <li>משחקים עם גלים ודייגים</li>
+                            <li>מתקשרים ביניהם בצפצופים</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🐬</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fact-section" id="greek-butterflies">
+            <h2>🦋 פרפרים צבעוניים עפים באביב היווני</h2>
+            <div class="fact-content">
+                <div class="fact-text">
+                    <p>באביב, יערות פיליון מתמלאים בפרפרים צבעוניים. הם עפים בין הפרחים הבריים ויוצרים מחזה קסום של צבעים רוקדים.</p>
+                    <div class="fun-facts">
+                        <h3>פרפרי פיליון:</h3>
+                        <ul>
+                            <li>פרפר הכרמל הצהוב הזוהר</li>
+                            <li>פרפר הקליאופטרה הכתום</li>
+                            <li>פרפר הצלע הכחול היפה</li>
+                            <li>פרפר הפוקה הסגול</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fact-image">
+                    <div class="image-placeholder">🦋</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="facts-header">
+            <h2>💙 מיקה הולכת לגלות את כל הקסם הזה בחופשה שלה ביוון פיליון! 💙</h2>
+            <p>איזה מזל שיש לה חופשה במקום הכי קסום ביוון!</p>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.close();
+            // If window.close() doesn't work (security restrictions), navigate back
+            if (document.referrer) {
+                window.location.href = document.referrer;
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
